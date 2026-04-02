@@ -1,0 +1,9 @@
+core-general-sdk/internal
+core-general-sdk/utils
+core-general-sdk/go.mod
+core-general-sdk/go.sum
+core-general-sdk/LICENSE
+core-general-sdk/.gitignore
+
+core-general-sdk/internal/
+core-general-sdk/utils/
