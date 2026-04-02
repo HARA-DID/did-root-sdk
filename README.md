@@ -121,7 +121,7 @@ bc := pkg.NewBlockchain("your-seed-phrase", net, big.NewInt(1212))
 
 ```go
 import (
-    "github.com/meQlause/did-root-sdk/pkg/rootfactory"
+    "github.com/HARA-DID/did-root-sdk/pkg/rootfactory"
     "github.com/meQlause/hara-core-blockchain-lib/pkg"
     "github.com/meQlause/hara-core-blockchain-lib/utils"
 )
@@ -155,7 +155,7 @@ hashes, err := rf.CreateDID(ctx, "", keyID, false)
 
 ```go
 import (
-    rootstorage "github.com/meQlause/did-root-sdk/pkg/rootstorage"
+    rootstorage "github.com/HARA-DID/did-root-sdk/pkg/rootstorage"
     "github.com/meQlause/hara-core-blockchain-lib/pkg"
     "github.com/meQlause/hara-core-blockchain-lib/utils"
 )
