@@ -1,0 +1,90 @@
+{
+  "project": "did-root-sdk",
+  "description": "A Go SDK for Decentralized Identity (DID) management on the HARA blockchain, supporting DID lifecycle, key/claim management, and organization identities.",
+  "packages": {
+    "factory": {
+      "purpose": "Handlers for transaction-based write operations to DID Root and Organization registries.",
+      "exported_types": [
+        {
+          "name": "Factory",
+          "purpose": "Main struct for sending write transactions to the DID Root and Organization registries.",
+          "methods": [
+            { "name": "GeneralExecute", "description": "Executes custom data calls on the registry.", "args": ["ctx context.Context", "wallet *wallet.Wallet", "data []byte", "keyIdentifier string", "multipleRPCCalls bool"], "returns": ["[]string", "error"] },
+            { "name": "CreateDID", "description": "Initiates the creation of a new DID.", "args": ["ctx context.Context", "wallet *wallet.Wallet", "did CreateDIDParam", "keyIdentifier string", "multipleRPCCalls bool"], "returns": ["[]string", "error"] },
+            { "name": "UpdateDID", "description": "Updates a DID's document descriptor URI.", "args": ["ctx context.Context", "wallet *wallet.Wallet", "params UpdateDIDParams", "keyIdentifier string", "multipleRPCCalls bool"], "returns": ["[]string", "error"] },
+            { "name": "DeactivateDID", "description": "Deactivates an existing DID.", "args": ["ctx context.Context", "wallet *wallet.Wallet", "didIndex uint64", "keyIdentifier string", "multipleRPCCalls bool"], "returns": ["[]string", "error"] },
+            { "name": "ReactivateDID", "description": "Reactivates a previously deactivated DID.", "args": ["ctx context.Context", "wallet *wallet.Wallet", "didIndex uint64", "keyIdentifier string", "multipleRPCCalls bool"], "returns": ["[]string", "error"] },
+            { "name": "TransferDIDOwner", "description": "Transfers ownership of a DID to a new address.", "args": ["ctx context.Context", "wallet *wallet.Wallet", "params TransferDIDOwnershipParams", "keyIdentifier string", "multipleRPCCalls bool"], "returns": ["[]string", "error"] },
+            { "name": "StoreData", "description": "Associates specialized binary data with a DID property key.", "args": ["ctx context.Context", "wallet *wallet.Wallet", "params StoreDataParams", "keyIdentifier string", "multipleRPCCalls bool"], "returns": ["[]string", "error"] },
+            { "name": "DeleteData", "description": "Removes associated binary data from a DID property key.", "args": ["ctx context.Context", "wallet *wallet.Wallet", "params DeleteDataParams", "keyIdentifier string", "multipleRPCCalls bool"], "returns": ["[]string", "error"] },
+            { "name": "AddKey", "description": "Adds a new public key for authentication or encryption to a DID.", "args": ["ctx context.Context", "wallet *wallet.Wallet", "params StoreKeyParams", "keyIdentifier string", "multipleRPCCalls bool"], "returns": ["[]string", "error"] },
+            { "name": "RemoveKey", "description": "Revokes an existing public key from a DID document.", "args": ["ctx context.Context", "wallet *wallet.Wallet", "params RemoveKeyParams", "keyIdentifier string", "multipleRPCCalls bool"], "returns": ["[]string", "error"] },
+            { "name": "AddClaim", "description": "Registers a new verifiable claim associated with the DID.", "args": ["ctx context.Context", "wallet *wallet.Wallet", "params StoreClaimParams", "keyIdentifier string", "multipleRPCCalls bool"], "returns": ["[]string", "error"] },
+            { "name": "RemoveClaim", "description": "Deletes a specific verifiable claim from the registry.", "args": ["ctx context.Context", "wallet *wallet.Wallet", "params RemoveClaimParams", "keyIdentifier string", "multipleRPCCalls bool"], "returns": ["[]string", "error"] },
+            { "name": "CreateOrg", "description": "Creates a new organization DID entry.", "args": ["ctx context.Context", "wallet *wallet.Wallet", "data []byte", "multipleRPCCalls bool"], "returns": ["[]string", "error"] },
+            { "name": "AddMember", "description": "Adds a user DID as a member of an organization.", "args": ["ctx context.Context", "wallet *wallet.Wallet", "orgDIDIndex *big.Int", "data []byte", "multipleRPCCalls bool"], "returns": ["[]string", "error"] },
+            { "name": "RemoveMember", "description": "Removes a user DID from an organization membership.", "args": ["ctx context.Context", "wallet *wallet.Wallet", "orgDIDIndex *big.Int", "data []byte", "multipleRPCCalls bool"], "returns": ["[]string", "error"] }
+          ]
+        },
+        { "name": "CreateDIDParam", "purpose": "Input structure for DID creation containing the proposed DID string.", "methods": [] },
+        { "name": "StoreDataParams", "purpose": "Input structure for attaching data to a DID property key.", "methods": [] },
+        { "name": "StoreKeyParams", "purpose": "Input structure for registerting new cryptographic keys with a DID.", "methods": [] },
+        { "name": "StoreClaimParams", "purpose": "Input structure for registering verifiable credentials/claims.", "methods": [] }
+      ],
+      "utility_functions": [
+        { "name": "NewFactory", "description": "Standard constructor for the Factory struct.", "args": ["contractAddress utils.Address", "contractABI utils.ABI", "bc *blockchain.Blockchain", "contract *contract.Contract"], "returns": ["*Factory"] },
+        { "name": "GenerateKeyIdentifier", "description": "Creates a secure random hex identifier for key assignment.", "args": [], "returns": ["string", "error"] },
+        { "name": "GenerateClaimID", "description": "Generates a deterministic Keccak-256 hash for claim reference.", "args": ["didIndex uint64", "topic uint8", "issuer utils.Address"], "returns": ["[32]byte"] }
+      ],
+      "exported_constants": [
+        { "name": "TypeCreateDID", "purpose": "Code for DID creation transactions." },
+        { "name": "TypeAddKey", "purpose": "Code for adding keys to a DID." },
+        { "name": "RoleOwner", "purpose": "Identifier for the primary owner role in an organization." },
+        { "name": "RoleIssuer", "purpose": "Identifier for a member authorized to issue claims." }
+      ]
+    },
+    "orgstorage": {
+      "purpose": "Provides read-only access to organization registries and membership data.",
+      "exported_types": [
+        {
+          "name": "OrgStorage",
+          "purpose": "Core struct for querying organization-specific state and membership.",
+          "methods": [
+            { "name": "IsMember", "description": "Validates if a DID is currently a member of the organization.", "args": ["ctx context.Context", "orgDIDHash utils.Hash", "userDIDHash utils.Hash"], "returns": ["bool", "error"] },
+            { "name": "GetMember", "description": "Retrieves detailed membership record for a specific user.", "args": ["ctx context.Context", "orgDIDHash utils.Hash", "userDIDHash utils.Hash"], "returns": ["*OrgMember", "error"] },
+            { "name": "GetOrgOwner", "description": "Retrieves the blockchain address that owns the organization registry.", "args": ["ctx context.Context", "orgDIDHash utils.Hash"], "returns": ["utils.Address", "error"] },
+            { "name": "IsOrgActive", "description": "Query to determine if an organization identity is in good standing.", "args": ["ctx context.Context", "orgDIDHash utils.Hash"], "returns": ["bool", "error"] }
+          ]
+        },
+        { "name": "OrgMember", "purpose": "Structure representing a member's role and enrollment timestamps.", "methods": [] }
+      ],
+      "utility_functions": [
+        { "name": "NewOrgStorage", "description": "Standard constructor for the OrgStorage struct.", "args": ["contractAddress utils.Address", "contractABI utils.ABI", "bc *blockchain.Blockchain", "contract *contract.Contract"], "returns": ["*OrgStorage"] }
+      ],
+      "exported_constants": []
+    },
+    "rootstorage": {
+      "purpose": "Provides read-only access to the DID root registry and document resolution.",
+      "exported_types": [
+        {
+          "name": "RootStorage",
+          "purpose": "Core struct for resolving DIDs and reading root registry metadata.",
+          "methods": [
+            { "name": "ResolveDID", "description": "Returns a DIDDocument containing status and descriptive URIs.", "args": ["ctx context.Context", "didHash utils.Hash"], "returns": ["*DIDDocument", "error"] },
+            { "name": "VerifyDIDOwnership", "description": "Confirms if an address is authorized to manage a specific DID.", "args": ["ctx context.Context", "didHash utils.Hash", "owner utils.Address"], "returns": ["bool", "error"] },
+            { "name": "GetKey", "description": "Retrieves cryptographic key metadata from the registry.", "args": ["ctx context.Context", "didHash utils.Hash", "keyDataHashed utils.Hash"], "returns": ["*Key", "error"] },
+            { "name": "GetClaim", "description": "Retrieves binary claim data and its associated metadata.", "args": ["ctx context.Context", "didHash utils.Hash", "claimID utils.Hash"], "returns": ["*Claim", "error"] },
+            { "name": "GetData", "description": "Retrieves raw attribute data associated with a key hash.", "args": ["ctx context.Context", "keyCode utils.Hash"], "returns": ["string", "error"] }
+          ]
+        },
+        { "name": "DIDDocument", "purpose": "Represents the core resolved identity attributes.", "methods": [] },
+        { "name": "Key", "purpose": "Represents a public key entry within a DID document.", "methods": [] },
+        { "name": "Claim", "purpose": "Represents a single verifiable credential/claim record.", "methods": [] }
+      ],
+      "utility_functions": [
+        { "name": "NewRootStorage", "description": "Standard constructor for the RootStorage struct.", "args": ["contractAddress utils.Address", "contractABI utils.ABI", "bc *blockchain.Blockchain", "contract *contract.Contract"], "returns": ["*RootStorage"] }
+      ],
+      "exported_constants": []
+    }
+  }
+}

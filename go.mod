@@ -1,4 +1,4 @@
-module github.com/meQlause/did-root-sdk
+module github.com/HARA-DID/did-root-sdk
 
 go 1.25.5
 

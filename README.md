@@ -20,7 +20,7 @@ For full development across the DID Root stack, you need these repositories:
 |----------|----------------|-------------|
 | **Smart Contracts** | https://dev.azure.com/dattabot/Blockchain%202024/_git/sc-hara | RootFactory, RootRegistry, RootStorage, interfaces, structs. |
 | **Core General SDK** | https://dev.azure.com/dattabot/Blockchain%202024/_git/core-general-sdk | Network helpers, Blockchain client, ABI loader, utils. |
-| **DID Root SDK (this repository)** | https://dev.azure.com/dattabot/Blockchain%202024/_git/did-root-sdk | RootFactory (write), RootStorage (read), HNS loading. |
+| **DID Root SDK (this repository)** | https://github.com/HARA-DID/did-root-sdk | RootFactory (write), RootStorage (read), HNS loading. |
 
 ---
 
@@ -42,7 +42,7 @@ For full development across the DID Root stack, you need these repositories:
 ---
 
 ### **`did-root-sdk/`**
-- Go module: `github.com/meQlause/did-root-sdk`
+- Go module: `github.com/HARA-DID/did-root-sdk`
 - Depends on `core-general-sdk`
 
 #### Packages:
@@ -81,7 +81,7 @@ Each SDK is a separate module:
   `module github.com/meQlause/hara-core-blockchain-lib`
 
 - `did-root-sdk/go.mod`  
-  `module github.com/meQlause/did-root-sdk`
+  `module github.com/HARA-DID/did-root-sdk`
 
 During local development, `did-root-sdk` uses a **replace** directive to point to the local path:
 
