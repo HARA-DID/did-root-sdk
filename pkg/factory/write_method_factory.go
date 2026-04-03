@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"math/big"
 
-	"github.com/meQlause/hara-core-blockchain-lib/pkg/wallet"
-	"github.com/meQlause/hara-core-blockchain-lib/utils"
+	"github.com/HARA-DID/hara-core-blockchain-lib/pkg/wallet"
+	"github.com/HARA-DID/hara-core-blockchain-lib/utils"
 )
 
 func (rf *Factory) callExternalDID(

@@ -4,9 +4,9 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/meQlause/hara-core-blockchain-lib/pkg/blockchain"
-	"github.com/meQlause/hara-core-blockchain-lib/pkg/contract"
-	"github.com/meQlause/hara-core-blockchain-lib/utils"
+	"github.com/HARA-DID/hara-core-blockchain-lib/pkg/blockchain"
+	"github.com/HARA-DID/hara-core-blockchain-lib/pkg/contract"
+	"github.com/HARA-DID/hara-core-blockchain-lib/utils"
 )
 
 type OrgStorage struct {

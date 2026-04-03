@@ -8,7 +8,7 @@ import (
 	"reflect"
 	"strings"
 
-	"github.com/meQlause/hara-core-blockchain-lib/utils"
+	"github.com/HARA-DID/hara-core-blockchain-lib/utils"
 )
 
 func unwrapDoubleEncoding(out []byte) ([]byte, error) {

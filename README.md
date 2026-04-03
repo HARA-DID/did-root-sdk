@@ -29,7 +29,7 @@ For full development across the DID Root stack, you need these repositories:
 ## Root
 
 ### **`core-general-sdk/`**
-- Go module: `github.com/meQlause/hara-core-blockchain-lib`
+- Go module: `github.com/HARA-DID/hara-core-blockchain-lib`
 - Main packages:
   - `pkg/` – public blockchain utilities:
     - `network.go` – RPC network wrapper (multi-endpoint, logging, health checks)
@@ -78,7 +78,7 @@ For full development across the DID Root stack, you need these repositories:
 Each SDK is a separate module:
 
 - `core-general-sdk/go.mod`  
-  `module github.com/meQlause/hara-core-blockchain-lib`
+  `module github.com/HARA-DID/hara-core-blockchain-lib`
 
 - `did-root-sdk/go.mod`  
   `module github.com/HARA-DID/did-root-sdk`
@@ -86,9 +86,9 @@ Each SDK is a separate module:
 During local development, `did-root-sdk` uses a **replace** directive to point to the local path:
 
 ```go
-require github.com/meQlause/hara-core-blockchain-lib v0.0.0
+require github.com/HARA-DID/hara-core-blockchain-lib v0.0.0
 
-replace github.com/meQlause/hara-core-blockchain-lib => ./core-general-sdk
+replace github.com/HARA-DID/hara-core-blockchain-lib => ./core-general-sdk
 ```
 
 When publishing the SDK, remove `replace` and use semantic versioning.
@@ -101,8 +101,8 @@ When publishing the SDK, remove `replace` and use semantic versioning.
 
 ```go
 import (
-    "github.com/meQlause/hara-core-blockchain-lib/pkg"
-    "github.com/meQlause/hara-core-blockchain-lib/utils"
+    "github.com/HARA-DID/hara-core-blockchain-lib/pkg"
+    "github.com/HARA-DID/hara-core-blockchain-lib/utils"
 )
 ```
 
@@ -122,8 +122,8 @@ bc := pkg.NewBlockchain("your-seed-phrase", net, big.NewInt(1212))
 ```go
 import (
     "github.com/HARA-DID/did-root-sdk/pkg/rootfactory"
-    "github.com/meQlause/hara-core-blockchain-lib/pkg"
-    "github.com/meQlause/hara-core-blockchain-lib/utils"
+    "github.com/HARA-DID/hara-core-blockchain-lib/pkg"
+    "github.com/HARA-DID/hara-core-blockchain-lib/utils"
 )
 ```
 
@@ -156,8 +156,8 @@ hashes, err := rf.CreateDID(ctx, "", keyID, false)
 ```go
 import (
     rootstorage "github.com/HARA-DID/did-root-sdk/pkg/rootstorage"
-    "github.com/meQlause/hara-core-blockchain-lib/pkg"
-    "github.com/meQlause/hara-core-blockchain-lib/utils"
+    "github.com/HARA-DID/hara-core-blockchain-lib/pkg"
+    "github.com/HARA-DID/hara-core-blockchain-lib/utils"
 )
 ```
 

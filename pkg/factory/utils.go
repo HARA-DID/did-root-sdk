@@ -6,7 +6,7 @@ import (
 	"math/big"
 	"time"
 
-	"github.com/meQlause/hara-core-blockchain-lib/utils"
+	"github.com/HARA-DID/hara-core-blockchain-lib/utils"
 )
 
 func GenerateKeyIdentifier() (string, error) {
