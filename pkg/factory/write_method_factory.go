@@ -135,7 +135,7 @@ func (rf *Factory) CreateDID(
 	multipleRPCCalls bool,
 ) ([]string, error) {
 	argBuilder := rf.blockchain.Network.ArgBuilder().
-		Type("string").Value(did)
+		Type("string").Value(did.DID)
 	data := utils.EncodeArgs(argBuilder)
 
 	return rf.callExternalDID(ctx, wallet, TypeCreateDID, data, keyIdentifier, multipleRPCCalls)
